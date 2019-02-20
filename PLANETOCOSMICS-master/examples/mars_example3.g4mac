@@ -1,0 +1,61 @@
+##############################################################
+#trajectory_test.g4mac  test of visualisation of trajectory
+# 
+# 
+##############################################################
+/control/verbose 1
+/PLANETOCOS/SPACECOORDINATE/UseSpice true
+/PLANETOCOS/GEOMETRY/SetType Flat
+/PLANETOCOS/GEOMETRY/SetConsiderAtmosphere false
+/PLANETOCOS/GEOMETRY/SetHeigthOfWorldAboveAtmosphere 150 km
+/PLANETOCOS/GEOMETRY/SetPlanetCoreThickness 10 km
+/PLANETOCOS/SOIL/ResetLayers
+/PLANETOCOS/GEOMETRY/SetLayerLength  500 km
+
+
+/PLANETOCOS/GEOMETRY/SetHeigthOfWorldAboveAtmosphere 150 km
+/PLANETOCOS/PHYSICS/SelectTypeOfEMPhysics NONE
+/PLANETOCOS/PHYSICS/SelectTypeOfHadronicPhysics NOHADRONIC
+/PLANETOCOS/Initialise
+
+
+/PLANETOCOS/BFIELD/SwitchOn
+
+/tracking/verbose 0
+/tracking/storeTrajectory 1
+/vis/scene/endOfEventAction accumulate
+/control/verbose 1
+
+
+
+#DIPOLE  trapped particle
+
+/PLANETOCOS/BFIELD/SetInternalFieldModel  CAIN90
+/PLANETOCOS/BFIELD/SetWorldCenterPositionForFlatGeometry -48 174 PLAG 
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry 0 0 10 km
+/PLANETOCOS/SOURCE/BfieldAtPrimaryPosition
+#/PLANETOCOS/BFIELD/ComputeInterpolMatrixForFlatGeometry 50 50 50 FlatGridCain90.txt
+/PLANETOCOS/DRAW/SetColourForBline 1 0 0
+/tracking/verbose 0
+/PLANETOCOS/DRAW/TraceBlineAtXYAltPos  10 -250 50 11 -250 50 11 km 
+
+
+
+
+/PLANETOCOS/BFIELD/ReadInterpolMatrixForFlatGeometry FlatGridCain90.txt
+/PLANETOCOS/BFIELD/SetInternalFieldModel  FLATGRID
+/PLANETOCOS/SOURCE/BfieldAtPrimaryPosition
+/PLANETOCOS/DRAW/DrawTrajectory true
+/PLANETOCOS/DRAW/SetColourForBline 0 1 0
+/tracking/verbose 0
+/PLANETOCOS/DRAW/TraceBlineAtXYAltPos  10 -250 50 11 -250 50 11 km 
+
+/vis/open VRML2FILE
+/vis/viewer/create 
+/vis/viewer/set/viewpointThetaPhi 0. 90. deg
+/vis/viewer/zoom .35
+/vis/viewer/set/style surface2
+/PLANETOCOS/DRAW/Show
+/PLANETOCOS/DRAW/Reset
+/vis/viewer/flush
+/vis/enable false

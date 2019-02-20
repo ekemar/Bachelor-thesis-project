@@ -1,0 +1,180 @@
+# general control --------------------------------------------
+
+/tracking/verbose 0
+/control/verbose 1
+/tracking/storeTrajectory 1
+/vis/scene/endOfEventAction accumulate
+
+# define atmosphere ------------------------------------------
+
+/PLANETOCOS/GEOMETRY/SetHeigthOfWorldAboveAtmosphere 100. rplanet
+
+/PLANETOCOS/GEOMETRY/SetMaxLayerThickness 5. km
+/PLANETOCOS/GEOMETRY/SetMinLayerThickness .000000001 km
+/PLANETOCOS/GEOMETRY/SetType spherical
+/PLANETOCOS/GEOMETRY/SetAtmosphereTop 20000. km
+/PLANETOCOS/GEOMETRY/SetGroundAltitude 0.3 km
+/PLANETOCOS/GEOMETRY/SetAtmosphereModel NRLMSISE00
+/PLANETOCOS/GEOMETRY/SetAp 4.
+/PLANETOCOS/GEOMETRY/SetF107 150
+/PLANETOCOS/GEOMETRY/SetF107A 150
+/PLANETOCOS/GEOMETRY/SetReferenceDate 2014 12 30 12 0 0
+/PLANETOCOS/GEOMETRY/SetReferencePosition -77.25 155.39 degree
+/PLANETOCOS/GEOMETRY/SetPercentOfDepth 1.
+/PLANETOCOS/GEOMETRY/SetConsiderAtmosphere true
+
+# Detection levels definition --------------------------------
+
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 100 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 95 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 90 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 85 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 80 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 75 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 70 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 65 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 60 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 55 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 50 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 45 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 40 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 37 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 35 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 30 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 25 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 20 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 15 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 10 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 5 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 0.1 km
+
+# Physics ---------------------------------------------------
+
+/PLANETOCOS/PHYSICS/SelectTypeOfEMPhysics STANDARD
+/PLANETOCOS/PHYSICS/SelectTypeOfHadronicPhysics QGSP_BIC_HP 
+/PLANETOCOS/PHYSICS/SelectTypeOfIonHadronicPhysics BIC
+/PLANETOCOS/PHYSICS/ConsiderElectromagneticNuclearPhysics true
+
+# Initialize Geometry and Physics ---------------------------
+
+/PLANETOCOS/Initialise
+
+# B-Field ---------------------------------------------------
+
+/PLANETOCOS/BFIELD/SwitchOn
+/PLANETOCOS/BFIELD/SetStartDate 2014 12 30 12 0 0
+/PLANETOCOS/BFIELD/SetInternalFieldModel IGRF
+/PLANETOCOS/BFIELD/SetExternalFieldModel TSY2001
+
+/PLANETOCOS/USERLIMIT/SetMagnetoMaxStepLength .1 rplanet
+/PLANETOCOS/STOPCONDITION/SetMaxTrackLength 100. rplanet
+/PLANETOCOS/STOPCONDITION/SetMaxTrackDuration 100. second
+/PLANETOCOS/INTEGRATION/SetPrecision 1e-5
+/PLANETOCOS/INTEGRATION/SetG4MaxStep 5e-1 rplanet
+/PLANETOCOS/INTEGRATION/SetDeltaIntersection 100 m
+
+# Histograms Data -------------------------------------------
+
+# information of complete event
+
+#/PLANETOCOS/ANALYSIS/COMPLETE_EVENT/CreateFluxRootFile atmo_field_vis.root
+
+# Cuts ------------------------------------------------------
+
+/PLANETOCOS/CUT/SetCutInDepthForAllAtmosphericLayers 1e-2 g/cm2
+/run/particle/applyCuts true all
+
+# Stopping conditions ---------------------------------------
+
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy e- 10 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy e+ 10 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy gamma 0.01 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy proton 10 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy alpha 10 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy anti_proton 10 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy neutron 10 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy pi+ 10 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy pi- 10 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy pi0 10 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy mu+ 10 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy mu- 10 MeV
+
+# Cosmic Ray ------------------------------------------------
+
+/PLANETOCOS/RANDOM/FixTheSeedRandomly
+/PLANETOCOS/RANDOM/SetRandomSeedAtRunStart false
+
+#/vis/open DAWNFILE
+/vis/open VRML2FILE
+/vis/scene/create
+/vis/viewer/set/viewpointThetaPhi 0 0 deg
+/vis/viewer/zoom 2
+
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour proton   	1 0 0 # red
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour e-   	0 1 0 # green
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour e+   	0 0 1 # blue
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour gamma	1 1 0 # yellow
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour alpha	1 0.5 0 # orange
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour neutron   	0 1 1 # turquoise
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour mu- 	1 0 1 # purple
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour mu+ 	1 0 1 # purple
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour pi- 	1 1 1 # white
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour pi+ 	1 1 1 # white
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour pi0 	1 1 1 # white
+
+/PLANETOCOS/DRAW/DrawTrajectory true
+/PLANETOCOS/DRAW/SetCoordinateSystem GEODETIC
+
+/PLANETOCOS/DRAW/SetColourForBline 1 0 0
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 0. degree
+/PLANETOCOS/DRAW/TraceBline
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 30. degree
+/PLANETOCOS/DRAW/TraceBline
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 60. degree
+/PLANETOCOS/DRAW/TraceBline
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 90. degree
+/PLANETOCOS/DRAW/TraceBline
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 120. degree
+/PLANETOCOS/DRAW/TraceBline
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 150. degree
+/PLANETOCOS/DRAW/TraceBline
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 180. degree
+/PLANETOCOS/DRAW/TraceBline
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 210. degree
+/PLANETOCOS/DRAW/TraceBline
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 240. degree
+/PLANETOCOS/DRAW/TraceBline
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 270. degree
+/PLANETOCOS/DRAW/TraceBline
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 300. degree
+/PLANETOCOS/DRAW/TraceBline
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 40. km  50 330. degree
+/PLANETOCOS/DRAW/TraceBline
+
+/gps/particle proton
+/gps/energy 20 GeV 
+/PLANETOCOS/SOURCE/SetPosition GEODETIC  500. km  -77.25 155.39 degree
+/PLANETOCOS/SOURCE/SetDirection GEODETIC 0. 0. degree 
+
+/run/beamOn 1
+/PLANETOCOS/DRAW/Show
+
+#/run/beamOn 1
+#/PLANETOCOS/DRAW/Show
+
+#/run/beamOn 1
+#/PLANETOCOS/DRAW/Show
+
+#/run/beamOn 1
+#/PLANETOCOS/DRAW/Show
+
+#/run/beamOn 1
+#/PLANETOCOS/DRAW/Show
+
+#/run/beamOn 1
+#/PLANETOCOS/DRAW/Show
+
+# Save Files -----------------------------------------------
+
+#/PLANETOCOS/ANALYSIS/COMPLETE_EVENT/WriteFluxRoot
+

@@ -1,0 +1,90 @@
+#/vis/open VRML2FILE
+#/vis/scene/create
+#/vis/viewer/set/viewpointThetaPhi 0 0 deg
+#/vis/viewer/zoom 2
+
+# general control --------------------------------------------
+
+/tracking/verbose 0
+/control/verbose 1
+/tracking/storeTrajectory 1
+/vis/scene/endOfEventAction accumulate
+
+# define atmosphere ------------------------------------------
+
+/PLANETOCOS/GEOMETRY/SetHeigthOfWorldAboveAtmosphere 50. rplanet
+/PLANETOCOS/GEOMETRY/SetConsiderAtmosphere false
+
+# Physics ---------------------------------------------------
+
+/PLANETOCOS/PHYSICS/SelectTypeOfEMPhysics NONE
+/PLANETOCOS/PHYSICS/SelectTypeOfHadronicPhysics NOHADRONIC
+/PLANETOCOS/PHYSICS/SelectTypeOfIonHadronicPhysics NONE
+/PLANETOCOS/PHYSICS/ConsiderElectromagneticNuclearPhysics false
+
+# Initialize Geometry and Physics ---------------------------
+
+/PLANETOCOS/Initialise
+
+# B-Field ---------------------------------------------------
+
+/PLANETOCOS/BFIELD/SwitchOn
+/PLANETOCOS/BFIELD/SetStartDate 2014 6 30 12 0 0
+/PLANETOCOS/BFIELD/SetInternalFieldModel IGRF
+/PLANETOCOS/BFIELD/SetExternalFieldModel TSY2004
+/PLANETOCOS/BFIELD/SetPdyn 1.7182
+/PLANETOCOS/BFIELD/SetDst -7.2578 nT
+/PLANETOCOS/BFIELD/SetImfBy 0.285304 nT
+/PLANETOCOS/BFIELD/SetImfBz 0.373093 nT
+/PLANETOCOS/BFIELD/SetW1 0.2551715043
+/PLANETOCOS/BFIELD/SetW2 0.2950118753
+/PLANETOCOS/BFIELD/SetW3 0.1858162704
+/PLANETOCOS/BFIELD/SetW4 0.2299289982
+/PLANETOCOS/BFIELD/SetW5 0.2813511588
+/PLANETOCOS/BFIELD/SetW6 0.4598143704
+
+/PLANETOCOS/USERLIMIT/SetMagnetoMaxStepLength .1 rplanet
+/PLANETOCOS/STOPCONDITION/SetMaxTrackLength 100. rplanet
+/PLANETOCOS/STOPCONDITION/SetMaxTrackDuration 100. second
+/PLANETOCOS/INTEGRATION/SetPrecision 1e-5
+/PLANETOCOS/INTEGRATION/SetG4MaxStep 5e-1 rplanet
+/PLANETOCOS/INTEGRATION/SetDeltaIntersection .5 km
+
+# Compute rigidity cutoff -----------------------------------
+
+/gps/particle proton
+#/PLANETOCOS/SOURCE/SetPosition GEODETIC  400. km  -55  160 degree
+#/PLANETOCOS/SOURCE/SetDirection GEODETIC 5. 175. degree 
+
+#/PLANETOCOS/DRAW/SetParticleTrajectoryColour proton   1 1 0
+#/PLANETOCOS/SOURCE/SetRigidity  0.5 GV
+#/PLANETOCOS/MAGNETIC/ComputeReverseTrajectories 1
+
+#/PLANETOCOS/SOURCE/SetRigidity  1 GV
+#/PLANETOCOS/MAGNETIC/ComputeReverseTrajectories 1
+#/PLANETOCOS/SOURCE/SetRigidity  1.5 GV
+#/PLANETOCOS/MAGNETIC/ComputeReverseTrajectories 1
+#/PLANETOCOS/SOURCE/SetRigidity  2 GV
+#/PLANETOCOS/MAGNETIC/ComputeReverseTrajectories 1
+#/PLANETOCOS/SOURCE/SetRigidity  2.5 GV
+#/PLANETOCOS/MAGNETIC/ComputeReverseTrajectories 1
+#/PLANETOCOS/SOURCE/SetRigidity  3 GV
+#/PLANETOCOS/MAGNETIC/ComputeReverseTrajectories 1
+#/PLANETOCOS/SOURCE/SetRigidity  3.5 GV
+#/PLANETOCOS/MAGNETIC/ComputeReverseTrajectories 1
+#/PLANETOCOS/SOURCE/SetRigidity  4 GV
+#/PLANETOCOS/MAGNETIC/ComputeReverseTrajectories 1
+#/PLANETOCOS/SOURCE/SetRigidity  5 GV
+#/PLANETOCOS/MAGNETIC/ComputeReverseTrajectories 1
+#/PLANETOCOS/SOURCE/SetRigidity  10 GV
+#/PLANETOCOS/MAGNETIC/ComputeReverseTrajectories 1
+#/PLANETOCOS/SOURCE/SetRigidity  20 GV
+#/PLANETOCOS/MAGNETIC/ComputeReverseTrajectories 1
+
+#/PLANETOCOS/DRAW/Show
+
+/PLANETOCOS/MAGNETIC/ResetRigidityVector
+/PLANETOCOS/MAGNETIC/SetDefaultRigidityVector
+
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 400. km  -55  160 degree
+/PLANETOCOS/MAGNETIC/RCutoffVsDirection GEODETIC 5. 5. 1 177.8 0.05 20 Test_CutoffVsDirection_proton_-55_160.dat

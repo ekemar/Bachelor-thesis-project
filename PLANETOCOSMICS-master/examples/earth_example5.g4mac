@@ -1,0 +1,160 @@
+##############################################################
+#Example5 for Earth:
+# -Flat geometry  
+# -Atmosphere at Latitude 0. Longitude 0.
+#	-From NRLMSISE00 
+# -Soil 
+#	-10m layer of SiO2 with 1.7 g/cm3 density
+# -Detection of the interaction of galactic cosmic ray protons at solar maximum 
+##############################################################
+/control/verbose 1
+
+#
+#Atmosphere definition
+#
+/PLANETOCOS/SPACECOORDINATE/UseSpice true
+/PLANETOCOS/GEOMETRY/SetType Flat
+/PLANETOCOS/GEOMETRY/SetConsiderAtmosphere true
+
+/PLANETOCOS/GEOMETRY/SetHeigthOfWorldAboveAtmosphere 150 km
+/PLANETOCOS/GEOMETRY/SetPlanetCoreThickness 10 km
+/PLANETOCOS/GEOMETRY/SetLayerLength  500 km
+/PLANETOCOS/GEOMETRY/SetAtmosphereTop 100 km
+/PLANETOCOS/GEOMETRY/SetAtmosphereModel NRLMSISE00
+/PLANETOCOS/GEOMETRY/SetReferencePosition 0 0
+/PLANETOCOS/GEOMETRY/SetGroundAltitude 0 km
+/PLANETOCOS/GEOMETRY/verbose 1
+
+#
+#Soil definition
+#
+/PLANETOCOS/SOIL/ResetLayers
+/PLANETOCOS/SOIL/AddMonoElementLayer SiO2 1.7 g/cm3 10 m
+
+
+#
+#Detection levels definition
+#
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 150 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 100 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 50 km
+/PLANETOCOS/GEOMETRY/DetectorAtDepth  5 g/cm2
+/PLANETOCOS/GEOMETRY/DetectorAtDepth  100 g/cm2
+/PLANETOCOS/GEOMETRY/DetectorAtDepth  200 g/cm2
+/PLANETOCOS/GEOMETRY/DetectorAtDepth  300 g/cm2
+/PLANETOCOS/GEOMETRY/DetectorAtDepth  500 g/cm2
+/PLANETOCOS/GEOMETRY/DetectorAtDepth  800 g/cm2
+#/PLANETOCOS/GEOMETRY/DetectorAtAltitude -10 km
+
+/PLANETOCOS/PHYSICS/SelectTypeOfHadronicPhysics LHEP
+
+
+#
+#Initialisation
+#
+/PLANETOCOS/Initialise
+
+
+#
+#No magnetic field
+#
+/PLANETOCOS/BFIELD/SwitchOff
+
+
+#
+#Histograms definition
+#
+
+#
+#Primaries
+#
+/PLANETOCOS/ANALYSIS/PRIMARY/FluxHisto proton  1 40 .01 100 GeV log
+/PLANETOCOS/ANALYSIS/PRIMARY/CosZenithHisto proton  2 100 -1. 1.   
+
+#
+#Downward and upward flux of particles
+#
+
+
+/PLANETOCOS/ANALYSIS/SECONDARY/SelectAllDetectors
+/PLANETOCOS/ANALYSIS/SECONDARY/SetTypeOfWeight INVERSE_COSTH
+/PLANETOCOS/ANALYSIS/SECONDARY/DownwardFluxHisto proton  1 20 .001 10 GeV log
+/PLANETOCOS/ANALYSIS/SECONDARY/DownwardFluxHisto e-  1 20 .001 10 GeV log
+/PLANETOCOS/ANALYSIS/SECONDARY/DownwardFluxHisto e+  1 20 .001 10 GeV log
+/PLANETOCOS/ANALYSIS/SECONDARY/DownwardFluxHisto gamma 1 25 .0001 10 GeV log
+/PLANETOCOS/ANALYSIS/SECONDARY/DownwardFluxHisto neutron 1 35  1e-3 1e4 MeV log
+
+/PLANETOCOS/ANALYSIS/SECONDARY/UpwardFluxHisto proton  2 20 .001 10 GeV log
+/PLANETOCOS/ANALYSIS/SECONDARY/UpwardFluxHisto e-  2 20 .001 10 GeV log
+/PLANETOCOS/ANALYSIS/SECONDARY/UpwardFluxHisto e+  2 20 .001 10 GeV log
+/PLANETOCOS/ANALYSIS/SECONDARY/UpwardFluxHisto gamma 2 25 .0001 10 GeV log
+/PLANETOCOS/ANALYSIS/SECONDARY/UpwardFluxHisto neutron 2 35  1e-3 1e4 MeV log
+
+#
+#Energy deposited
+#
+/PLANETOCOS/ANALYSIS/EDEP/AtmoEdepVsDepthHisto 1 100
+/PLANETOCOS/ANALYSIS/EDEP/AtmoEdepVsAltitudeHisto 1 100
+
+#
+#cut in range definition
+#
+/PLANETOCOS/CUT/SetCutInDepthForAllAtmosphericLayers .5 g/cm2
+/run/particle/applyCuts true e-
+/run/particle/applyCuts true gamma
+/run/particle/applyCuts true e+
+/run/particle/dumpCutValues
+
+
+/tracking/verbose 0
+/tracking/storeTrajectory 1
+/vis/scene/endOfEventAction accumulate
+/control/verbose 1
+
+
+
+#
+#Stopping energy 
+#
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy e- 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy gamma 100 keV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy proton 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy neutron 0.001 MeV
+
+
+
+
+#
+#No  visualisation
+#
+/vis/enable false
+/tracking/storeTrajectory 0
+/PLANETOCOS/DRAW/DrawTrajectory false
+
+
+#
+#Select Solar maximum galactic flux  
+#
+
+/PLANETOCOS/ANALYSIS/ResetHistograms
+/PLANETOCOS/SOURCE/SelectSolMaxGalacticFlux proton 0.01 100 GeV/nuc
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry 0 0 100.01 km 
+
+
+#
+#Process 1000 atmospheric showers 
+#
+/tracking/verbose 0
+/run/beamOn  100
+
+#
+#Save histograms with normalisation per primary flux
+#
+
+#Root case
+/PLANETOCOS/ANALYSIS/SaveTree earth_example5.root root / TO_PRIMARY_FLUX
+
+/PLANETOCOS/ANALYSIS/SaveTree earth_example5.ascii ascii /PRIMARY TO_PRIMARY_FLUX
+
+
+

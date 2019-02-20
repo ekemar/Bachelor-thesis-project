@@ -1,0 +1,117 @@
+# general control --------------------------------------------
+
+/tracking/verbose 0
+/control/verbose 1
+/tracking/storeTrajectory 1
+/vis/scene/create
+/vis/scene/endOfEventAction accumulate
+
+# define atmosphere ------------------------------------------
+
+/PLANETOCOS/GEOMETRY/SetHeigthOfWorldAboveAtmosphere 50. rplanet
+
+/PLANETOCOS/GEOMETRY/SetMaxLayerThickness 5. km
+/PLANETOCOS/GEOMETRY/SetMinLayerThickness .000000001 km
+/PLANETOCOS/GEOMETRY/SetType spherical
+/PLANETOCOS/GEOMETRY/SetAtmosphereTop 20000. km
+/PLANETOCOS/GEOMETRY/SetGroundAltitude 0.1 km
+/PLANETOCOS/GEOMETRY/SetAtmosphereModel NRLMSISE00
+/PLANETOCOS/GEOMETRY/SetAp 4.
+/PLANETOCOS/GEOMETRY/SetF107 150
+/PLANETOCOS/GEOMETRY/SetF107A 150
+/PLANETOCOS/GEOMETRY/SetReferenceDate 2014 12 30 12 0 0
+/PLANETOCOS/GEOMETRY/SetReferencePosition -77.25 155.39 degree
+/PLANETOCOS/GEOMETRY/SetPercentOfDepth 1.
+/PLANETOCOS/GEOMETRY/SetConsiderAtmosphere true
+
+# Detection levels definition --------------------------------
+
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 100 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 95 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 90 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 85 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 80 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 75 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 70 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 65 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 60 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 55 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 50 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 45 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 40 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 37 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 35 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 33 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 30 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 25 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 20 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 15 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 10 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 5 km
+/PLANETOCOS/GEOMETRY/DetectorAtAltitude 0.1 km
+
+# Physics ---------------------------------------------------
+
+/PLANETOCOS/PHYSICS/SelectTypeOfEMPhysics LOWENERGY
+/PLANETOCOS/PHYSICS/SelectTypeOfHadronicPhysics QGSP_BIC_HP 
+/PLANETOCOS/PHYSICS/SelectTypeOfIonHadronicPhysics BIC
+/PLANETOCOS/PHYSICS/ConsiderElectromagneticNuclearPhysics true
+
+# Initialize Geometry and Physics ---------------------------
+
+/PLANETOCOS/Initialise
+
+# B-Field ---------------------------------------------------
+
+/PLANETOCOS/BFIELD/SwitchOn
+/PLANETOCOS/BFIELD/SetStartDate 2014 12 30 12 0 0
+/PLANETOCOS/BFIELD/SetInternalFieldModel IGRF
+/PLANETOCOS/BFIELD/SetExternalFieldModel NOFIELD
+
+/PLANETOCOS/USERLIMIT/SetMagnetoMaxStepLength .1 rplanet
+/PLANETOCOS/STOPCONDITION/SetMaxTrackLength 100. rplanet
+/PLANETOCOS/STOPCONDITION/SetMaxTrackDuration 100. second
+/PLANETOCOS/INTEGRATION/SetPrecision 1e-5
+/PLANETOCOS/INTEGRATION/SetG4MaxStep 5e-1 rplanet
+/PLANETOCOS/INTEGRATION/SetDeltaIntersection 100 m
+
+# Histograms Data -------------------------------------------
+
+# information of complete event
+
+/PLANETOCOS/ANALYSIS/COMPLETE_EVENT/CreateFluxRootFile proton_antarctica.root
+
+# Cuts ------------------------------------------------------
+
+/PLANETOCOS/CUT/SetCutInDepthForAllAtmosphericLayers 1e-2 g/cm2
+/run/particle/applyCuts true all
+
+# Stopping conditions ---------------------------------------
+
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy e- 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy e+ 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy gamma 0.01 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy proton 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy alpha 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy deuteron 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy anti_proton 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy neutron 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy anti_neutron 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy pi+ 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy pi- 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy pi0 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy mu+ 1 MeV
+/PLANETOCOS/STOPCONDITION/SetStoppingEnergy mu- 1 MeV
+
+# Cosmic Ray ------------------------------------------------
+
+/PLANETOCOS/RANDOM/FixTheSeedRandomly
+/PLANETOCOS/RANDOM/SetRandomSeedAtRunStart false
+
+/PLANETOCOS/SOURCE/RandomIsotropicDistribution proton.dat GEODETIC km degree 6367.4445 500 37 -77.89 -76.61 141.53 169.25 1000
+
+# Save Files -----------------------------------------------
+
+/PLANETOCOS/ANALYSIS/COMPLETE_EVENT/WriteFluxRoot
+
+

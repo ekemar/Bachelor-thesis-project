@@ -1,0 +1,46 @@
+name 		:= PlanetoCosmics
+G4TARGET 	:= $(name)
+G4EXLIB 	:= true
+
+CPPFLAGS 	+= -DUSE_ANALYSIS_ROOT `$(ROOTSYS)/bin/root-config --cflags`
+CPPFLAGS 	+= -I$(ROOTSYS)/include
+EXTRALIBS 	:= `$(ROOTSYS)/bin/root-config --libs` 
+
+EXTRALIBS	+= -L./fortran/earth/magfieldmodels/lib -lFortranEarthMagField
+
+CPPFLAGS 	+=  -I./lib/cspice/include
+EXTRALIBS 	+= -L./lib/cspice/lib -l:cspice.a -l:csupport.a -lrt 
+
+ifndef G4INSTALL
+  G4INSTALL = ../../..
+endif
+
+.PHONY: 	all 
+all: 		lib_fortran lib_spice lib bin bin_atmo docu
+clean_all: 	clean_fortran clean clean_spice clean_docu
+
+lib_fortran:
+		@for dir in fortran/earth/magfieldmodels; do (cd $$dir && $(MAKE) ); done
+	
+clean_fortran:
+		@for dir in fortran/earth/magfieldmodels; do (cd $$dir && $(MAKE) clean ); done
+lib_spice:		
+		@for dir in lib/cspice/; do (cd $$dir && makeall.csh); done
+
+clean_spice:
+		@for dir in lib/cspice/lib; do (cd $$dir && rm csupport.a  cspice.a); done
+		@for dir in lib/cspice/exe; do (cd $$dir && rm *); done
+
+docu:		
+		@for dir in doc; do (cd $$dir && doxygen planetocosmics.doxy ); done
+
+clean_docu:
+		@for dir in doc; do (cd $$dir && rm -r html latex ); done
+		
+planeto:	lib bin bin_atmo		
+
+include $(G4INSTALL)/config/binmake.gmk
+bin_atmo:
+		@if [ ! -d ./bin ]; then mkdir bin; fi
+		ln -s -f $(G4BIN)/$(G4SYSTEM)/PlanetoCosmics  bin/PlanetoCosmics
+

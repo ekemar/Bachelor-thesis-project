@@ -1,0 +1,108 @@
+##############################################################
+#Example1 for Mars:
+# -Flat geometry located at -48 Lat 174 Long in aerodetic coordinate 
+# -Use of FLATGRID model and CAIN90 
+# -Visualisation of Magnetic Field Lines all  over the surface
+# -Visualisation of 10 MeV e- trajectory
+##############################################################
+
+
+/control/verbose 1
+/PLANETOCOS/GEOMETRY/SetType Flat
+/PLANETOCOS/GEOMETRY/SetHeigthOfWorldAboveAtmosphere 150 km
+/PLANETOCOS/GEOMETRY/SetPlanetCoreThickness 10 km
+/PLANETOCOS/GEOMETRY/SetLayerLength  500 km
+/PLANETOCOS/InitialiseForMagneticShieldingStudy
+/PLANETOCOS/BFIELD/SwitchOn
+
+/tracking/verbose 0
+/tracking/storeTrajectory 1
+/vis/scene/endOfEventAction accumulate
+/control/verbose 1
+
+
+#
+#CAIN 90 model
+#
+/PLANETOCOS/BFIELD/SetInternalFieldModel  CAIN90
+/PLANETOCOS/BFIELD/SetWorldCenterPositionForFlatGeometry -48 174 PLAG 
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry 0 0 10 km
+/PLANETOCOS/SOURCE/BfieldAtPrimaryPosition
+/PLANETOCOS/DRAW/SetColourForBline 1 1 0
+/tracking/verbose 0
+/PLANETOCOS/DRAW/TraceBlineAtXYAltPos  10 -250 50 11 -250 50 11 km 
+
+#
+#FLATGRID model
+#
+/PLANETOCOS/BFIELD/ComputeInterpolMatrixForFlatGeometry 50 50 50 FlatGridCain90.txt
+/PLANETOCOS/BFIELD/ReadInterpolMatrixForFlatGeometry FlatGridCain90.txt
+/PLANETOCOS/BFIELD/SetInternalFieldModel  FLATGRID
+/PLANETOCOS/SOURCE/BfieldAtPrimaryPosition
+/PLANETOCOS/DRAW/DrawTrajectory true
+/PLANETOCOS/DRAW/SetColourForBline 0 1 0
+/tracking/verbose 0
+/PLANETOCOS/DRAW/TraceBlineAtXYAltPos  10 -250 50 11 -250 50 11 km 
+
+#
+#e- trajectory
+#
+/PLANETOCOS/DRAW/SetParticleTrajectoryColour e- 1 0 1 
+/gps/particle e-
+/gps/energy 10 MeV
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry 0 0 150 km
+/PLANETOCOS/SOURCE/SetDirectionForFlatGeometry 0 0 degree
+/PLANETOCOS/MAGNETIC/ComputeTrajectories 1
+
+/gps/energy 10 MeV
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry -100 -100 150 km
+/PLANETOCOS/SOURCE/SetDirectionForFlatGeometry 0 0 degree
+/PLANETOCOS/MAGNETIC/ComputeTrajectories 1
+
+/gps/energy 10 MeV
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry -100 0 150 km
+/PLANETOCOS/SOURCE/SetDirectionForFlatGeometry 0 0 degree
+/PLANETOCOS/MAGNETIC/ComputeTrajectories 1
+
+/gps/energy 10 MeV
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry -100 100 150 km
+/PLANETOCOS/SOURCE/SetDirectionForFlatGeometry 0 0 degree
+/PLANETOCOS/MAGNETIC/ComputeTrajectories 1
+
+/gps/energy 10 MeV
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry  0 -100 150 km
+/PLANETOCOS/SOURCE/SetDirectionForFlatGeometry 0 0 degree
+/PLANETOCOS/MAGNETIC/ComputeTrajectories 1
+
+
+/gps/energy 10 MeV
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry  0 100 150 km
+/PLANETOCOS/SOURCE/SetDirectionForFlatGeometry 0 0 degree
+/PLANETOCOS/MAGNETIC/ComputeTrajectories 1
+
+/gps/energy 10 MeV
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry  100 -100 150 km
+/PLANETOCOS/SOURCE/SetDirectionForFlatGeometry 0 0 degree
+/PLANETOCOS/MAGNETIC/ComputeTrajectories 1
+
+
+/gps/energy 10 MeV
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry  100 0 150 km
+/PLANETOCOS/SOURCE/SetDirectionForFlatGeometry 0 0 degree
+/PLANETOCOS/MAGNETIC/ComputeTrajectories 1
+
+/gps/energy 10 MeV
+/PLANETOCOS/SOURCE/SetPositionForFlatGeometry  100 100 150 km
+/PLANETOCOS/SOURCE/SetDirectionForFlatGeometry 0 0 degree
+/PLANETOCOS/MAGNETIC/ComputeTrajectories 1
+
+/vis/open VRML2FILE
+#/vis/open DAWNFILE
+/vis/viewer/create 
+/vis/viewer/set/viewpointThetaPhi 0. 90. deg
+/vis/viewer/zoom .35
+/vis/viewer/set/style surface2
+/PLANETOCOS/DRAW/Show
+/vis/viewer/update
+/PLANETOCOS/DRAW/Reset
+/vis/enable false

@@ -1,0 +1,69 @@
+##############################################################
+#Example 2 for the Earth
+#Computation of cutoff rigidities in function of position   
+#
+# 
+##############################################################
+/control/verbose 1
+/PLANETOCOS/SPACECOORDINATE/UseSpice true
+
+/PLANETOCOS/GEOMETRY/SetConsiderAtmosphere false
+/PLANETOCOS/GEOMETRY/SetHeigthOfWorldAboveAtmosphere 50 rplanet
+
+/PLANETOCOS/PHYSICS/SelectTypeOfEMPhysics NONE
+/PLANETOCOS/PHYSICS/SelectTypeOfHadronicPhysics NOHADRONIC
+/PLANETOCOS/Initialise
+
+
+/PLANETOCOS/BFIELD/SwitchOn
+
+
+
+/tracking/verbose 0
+/tracking/storeTrajectory 0
+/control/verbose 1
+/run/verbose 0
+
+
+
+
+#
+#Integration parameter
+#
+
+/PLANETOCOS/USERLIMIT/SetMagnetoMaxStepLength 1. rplanet
+/PLANETOCOS/STOPCONDITION/SetMaxTrackLength 100. rplanet
+
+/PLANETOCOS/INTEGRATION/SetPrecision 1e-5
+/PLANETOCOS/INTEGRATION/SetG4MaxStep 5e-1 rplanet
+/PLANETOCOS/INTEGRATION/SetDeltaIntersection .5 km
+
+
+#
+#Set the magnetic field model to IGRF without external field 
+#
+
+/PLANETOCOS/BFIELD/SetStartDate 1990 1 1 0 0 0
+/PLANETOCOS/BFIELD/SetInternalFieldModel IGRF
+/PLANETOCOS/BFIELD/SetExternalFieldModel NOFIELD
+
+
+#
+#Definition of particle type  
+#
+
+/gps/particle proton
+
+
+
+#
+#Compute rigidity cutoff
+#
+/PLANETOCOS/MAGNETIC/AutomaticDetectionOfPenumbra true
+#if you do not want to use the automatic detection of the penumbra  set false
+# in the previous command and actaivate the next two command lines
+
+#/PLANETOCOS/MAGNETIC/ResetRigidityVector
+#/PLANETOCOS/MAGNETIC/AddValuesToRigidityVector 20. -0.01 1998
+/PLANETOCOS/MAGNETIC/RCutoffVsPosition  GEODETIC 20 km  80 -40. 5 0. 60. 6 0. 0. degree CutoffVsPosition.out
+

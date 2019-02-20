@@ -1,0 +1,54 @@
+##############################################################
+#                                                            #
+# Simulation of cosmic rays in the magentic field and        #
+# atmosphere. Use of spectra produced by GALPROP             #
+# Author: Philip v. Doetinchem                               #       
+#                                                            #
+##############################################################
+
+# general control --------------------------------------------
+
+/tracking/verbose 0
+/control/verbose 1
+/tracking/storeTrajectory 1
+/vis/scene/endOfEventAction accumulate
+
+# define atmosphere ------------------------------------------
+
+/PLANETOCOS/GEOMETRY/SetHeigthOfWorldAboveAtmosphere 50. rplanet
+/PLANETOCOS/GEOMETRY/SetConsiderAtmosphere false
+
+# Physics ---------------------------------------------------
+
+/PLANETOCOS/PHYSICS/SelectTypeOfEMPhysics NONE
+/PLANETOCOS/PHYSICS/SelectTypeOfHadronicPhysics NOHADRONIC
+/PLANETOCOS/PHYSICS/SelectTypeOfIonHadronicPhysics NONE
+/PLANETOCOS/PHYSICS/ConsiderElectromagneticNuclearPhysics false
+
+# Initialize Geometry and Physics ---------------------------
+
+/PLANETOCOS/Initialise
+
+# B-Field ---------------------------------------------------
+
+/PLANETOCOS/BFIELD/SwitchOn
+/PLANETOCOS/BFIELD/SetStartDate 2014 12 30 12 0 0
+/PLANETOCOS/BFIELD/SetInternalFieldModel IGRF
+/PLANETOCOS/BFIELD/SetExternalFieldModel TSY2001
+
+/PLANETOCOS/USERLIMIT/SetMagnetoMaxStepLength .1 rplanet
+/PLANETOCOS/STOPCONDITION/SetMaxTrackLength 100. rplanet
+/PLANETOCOS/STOPCONDITION/SetMaxTrackDuration 100. second
+/PLANETOCOS/INTEGRATION/SetPrecision 1e-5
+/PLANETOCOS/INTEGRATION/SetG4MaxStep 5e-1 rplanet
+/PLANETOCOS/INTEGRATION/SetDeltaIntersection .5 km
+
+# Compute rigidity cutoff -----------------------------------
+
+/gps/particle proton
+
+/PLANETOCOS/MAGNETIC/ResetRigidityVector
+/PLANETOCOS/MAGNETIC/SetDefaultRigidityVector
+
+/PLANETOCOS/SOURCE/SetPosition GEODETIC 37. km  -76  141.53 degree
+/PLANETOCOS/MAGNETIC/RCutoffVsDirection GEODETIC 0. 5. 19 0. 10. 36 CutoffVsDirection_proton_-76_0.dat
