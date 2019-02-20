@@ -1,0 +1,73 @@
+# Data export from the Cosmic-Ray database (http://lpsc.in2p3.fr/crdb)
+# Please cite Maurin, Melot, Taillet, A&A 569, A32 (2014) [arXiv:1302.5525]
+# Date: 2017/05/31
+# Format: GALPROP code (see at the bottom of the file)
+#
+  Ref.  experiment    units              value        Energy        value error                  Z.A sec   |     Z.A pri    [comments]
+X      Y              name   <E>   low    high number    -        +
+==================================================================================================================================== 
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  1.9774e-1  1.7000e-1  2.3000e-1  3.5600e-3  8.8589e-4  9.7509e-4  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  2.4920e-1  2.3000e-1  2.7000e-1  4.5300e-3  1.2210e-3  1.3393e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  2.9394e-1  2.7000e-1  3.2000e-1  5.0900e-3  1.1449e-3  1.2357e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  3.4409e-1  3.2000e-1  3.7000e-1  7.5500e-3  1.1532e-3  1.2371e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  3.8949e-1  3.7000e-1  4.1000e-1  8.0500e-3  1.5402e-3  1.6760e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  4.2473e-1  4.1000e-1  4.4000e-1  9.1900e-3  1.4896e-3  1.7103e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  4.5957e-1  4.4000e-1  4.8000e-1  9.9500e-3  1.5465e-3  1.6603e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  5.0438e-1  4.8000e-1  5.3000e-1  1.1400e-2  1.7000e-3  1.7088e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  5.4964e-1  5.3000e-1  5.7000e-1  9.3000e-3  1.4187e-3  1.5028e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  5.9925e-1  5.7000e-1  6.3000e-1  1.2600e-2  1.5652e-3  1.6553e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  6.5452e-1  6.3000e-1  6.8000e-1  1.2000e-2  1.4765e-3  1.5652e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  7.1414e-1  6.8000e-1  7.5000e-1  1.3200e-2  1.6125e-3  1.6125e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  7.8422e-1  7.5000e-1  8.2000e-1  1.3000e-2  1.6125e-3  1.7000e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  8.5428e-1  8.2000e-1  8.9000e-1  1.8400e-2  1.9416e-3  2.0248e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  9.3392e-1  8.9000e-1  9.8000e-1  1.5100e-2  1.7205e-3  1.8028e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  1.0240e+0  9.8000e-1  1.0700e+0  1.7500e-2  1.9849e-3  1.9849e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  1.1189e+0  1.0700e+0  1.1700e+0  1.9100e-2  2.1213e-3  2.1213e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  1.2238e+0  1.1700e+0  1.2800e+0  1.8200e-2  1.9799e-3  1.9799e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  1.3387e+0  1.2800e+0  1.4000e+0  2.2800e-2  2.2672e-3  2.2672e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  1.4636e+0  1.4000e+0  1.5300e+0  2.0700e-2  2.1260e-3  2.1260e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  1.6033e+0  1.5300e+0  1.6800e+0  2.1000e-2  2.2023e-3  2.2023e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  1.7582e+0  1.6800e+0  1.8400e+0  1.9100e-2  2.0616e-3  2.0616e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  1.9231e+0  1.8400e+0  2.0100e+0  2.0500e-2  2.0809e-3  2.1401e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  2.1029e+0  2.0100e+0  2.2000e+0  2.1800e-2  2.0809e-3  2.0809e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  2.3026e+0  2.2000e+0  2.4100e+0  1.8800e-2  1.9416e-3  1.9416e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  2.5224e+0  2.4100e+0  2.6400e+0  1.9500e-2  1.9416e-3  1.9416e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  2.7622e+0  2.6400e+0  2.8900e+0  1.7700e-2  1.8028e-3  1.8028e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  3.0220e+0  2.8900e+0  3.1600e+0  1.9000e-2  2.5942e-3  2.5060e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+  Ab12 BESS-PolarII(2007/12-2008/01)                 GeV 1/m2/sr/GeV flux  3.3066e+0  3.1600e+0  3.4600e+0  1.6400e-2  2.7803e-3  2.8425e-3  a 0.0 0.0 0.0         | -1.1 0.0 0.0        1H-bar                              
+#
+#---------------------------------------------------------------------------------------------------------------------------------------------
+# =====================
+# Explanation of format
+# =====================
+# c++ software to read and use this data is available from the author.
+#
+# The columns are aligned but the reading routines allow for some flexibility - it is sufficient to use blanks to separate horizontal entries
+# The '#' sign indicates a comment and is ignored
+#
+#  Ref.  experiment    units              value        Energy        value         error                  Z.A sec   |     Z.A pri    [comments]
+#                    X      Y              name   <E>   low    high    number    -        +    
+#====================================================================================================================================
+# Ag02  AMS01     GeV  1/m2/sr/MeV       flux   0.265  0.22   0.31    154.e-2 13.4e-2  0.0   a    0.00  0.00   0.0 | 1.01  0.0   0.0 Table 4.8 linear sum errors
+# ACEW  CRIS      MeV  1/cm2/sr/MeV      ratio 188.0 114.   310.      4.22e-2 0.36e-2  0.0   a   13.26  0.00   0.0 |13.-1  0.0   0.0
+# |     |         |                      |      |      |     |        |      |         |     |   |                 |                 |
+# | Reference key (4 characters) from which data was taken,  as in table at end
+#       | Experiment name (or acronym to distinguish different results from same experiment)
+#                 | units  (energy per nucleon) (MeV,GeV)
+#                      | units of flux (cm2,m2/MeV,GeV)
+#                                        | type of measurement: flux (for spectra e.g. for elements) or ratio (e.g. for B/C)
+#                                               | mean energy as given by authors or computed from low,high
+#                                                      | low energy of range
+#                                                            | high energy of range
+#                                                                     | flux or ratio value
+#                                                                             | error bar -
+#                                                                                       |error bar + (if 0.0 assumed symmetrical)
+#                                                                                            | type of measurment: a=absolute, r=ratio 
+#                                                                                                | secondary Z.A if ratio: up to 3 values to be combined.
+#                                                                                                  A=-1 means all A for given Z e.g. 13.-1=Al elemental
+#                                                                                                                  | primary Z.A if ratio, or isotope Z.A if spectrum 
+#                                                                                                                    up to 3 values to be combined
+#                                                                                                                    A=-1 means all A for given Z e.g. 13.-1=Al elemental
+#                                                                                                                                   | free for comments on this entry
+#
+######################################################################################################################################################################
